@@ -1,11 +1,15 @@
 # AdaSR: Efficient and Adaptive Super-Resolution Decoding ⚡
 
+<div align="center">
+
 ![PyTorch](https://img.shields.io/badge/PyTorch-EE4C2C?style=for-the-badge&logo=pytorch&logoColor=white)
 ![Status](https://img.shields.io/badge/Status-Research-blue?style=for-the-badge)
 ![License](https://img.shields.io/badge/License-MIT-green.svg?style=for-the-badge)
 
 **Authors:** Jacob Maimon, Gal Zohar, Tomer Abram, Tomer Baziza, Yonatan Bansay  
 **Based on:** ECDP Framework
+
+</div>
 
 ---
 
@@ -51,6 +55,7 @@ This mechanism monitors the global refinement process and terminates the algorit
 Our experiments demonstrate that adaptivity allows for **higher-fidelity outputs** compared to fixed-step baselines, in addition to saving time.
 
 ### Quantitative Improvements (Case Studies)
+
 | Image Subject | Baseline PSNR | **AdaSR PSNR** | Baseline SSIM | **AdaSR SSIM** | Improvement |
 | :--- | :---: | :---: | :---: | :---: | :--- |
 | **Moon** | 28.06 dB | **28.37 dB** | 0.804 | **0.815** | **+0.31 dB** |
@@ -70,36 +75,37 @@ Our experiments demonstrate that adaptivity allows for **higher-fidelity outputs
 git clone [https://github.com/JacobMaimon13/AdaSR-Efficient-Diffusion.git](https://github.com/JacobMaimon13/AdaSR-Efficient-Diffusion.git)
 cd AdaSR-Efficient-Diffusion
 pip install -r requirements.txt
-2. Download Data
+```
+
+### 2. Download Data
 Automatically download the DIV2K dataset:
-
-Bash
-
+```bash
 python -m src.data.download
+```
 3. Training
 To train the model from scratch (or fine-tune):
-
-Bash
-
+```
 python train.py --epochs 30 --batch_size 8
+```
 4. Evaluation & Comparison
 Run the comparison script to generate the metrics table and visual gallery:
-
-Bash
-
-python test.py --model_path checkpoints/best_model.pt --num_images 5
+```
+python test.py --model_path checkpoints/best_model.pt --num_images 5 --adaptive
+```
 📂 Project Structure
 Plaintext
-
+```
 src/
 ├── adaptive/           # The core innovation (Adaptive Logic)
 │   ├── complexity.py   # Gradient/Variance complexity estimators
 │   ├── allocation.py   # Logic for assigning steps per patch
-│   └── early_exit.py   # Temporal early stopping mechanism
+│   ├── early_exit.py   # Temporal early stopping mechanism
+│   └── decoder.py      # The Manager Class
 ├── models/             # Base Diffusion & UNet architecture
 ├── data/               # Data loading and transforms
 ├── training/           # Training loops and validation
 └── utils/              # LPIPS/PSNR metrics and visualization
+```
 🔮 Future Directions
 To combat the rising energy demands of Generative AI, we propose expanding AdaSR principles to:
 
@@ -113,4 +119,6 @@ NLP: Applying adaptive inference to Large Language Models (LLMs) to reduce text 
 This project builds upon the ECDP (Efficient Conditional Diffusion Model) framework. We credit the original authors for their foundational work in diffusion-based super-resolution.
 
 📄 License
-This project is licensed under the MIT License - see the LICENSE file for details
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+
